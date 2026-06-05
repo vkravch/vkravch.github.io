@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Резюме Кравчук Владиславы — стажёр product / project manager." />
+  <title>Кравчук Владислава — Product / Project Manager Intern</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --paper: #ffffff;
+      --text: #172033;
+      --muted: #5d667a;
+      --soft: #eef2f7;
+      --line: #d9e0ea;
+      --accent: #2e3a59;
+      --accent-2: #0056b3;
+      --accent-soft: #edf3ff;
+      --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.58;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(0, 86, 179, 0.10), transparent 34rem),
+        linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
+    }
+
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 32px auto;
+      background: var(--paper);
+      border: 1px solid rgba(217, 224, 234, 0.85);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 28px;
+      padding: 42px 46px 34px;
+      background: linear-gradient(135deg, #ffffff 0%, #f6f8fc 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent-2);
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--accent);
+      font-size: clamp(2.25rem, 5vw, 4.2rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .role {
+      margin: 16px 0 0;
+      color: var(--text);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 650;
+    }
+
+    .summary {
+      max-width: 780px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .contact-card {
+      align-self: start;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .contact-card h2 {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 0.96rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .contact-list span {
+      display: block;
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--accent);
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 34px;
+      padding: 34px 46px 46px;
+    }
+
+    aside {
+      display: grid;
+      align-content: start;
+      gap: 22px;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      margin: 0 0 30px;
+    }
+
+    h2.section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 1rem;
+      letter-spacing: 0.075em;
+      text-transform: uppercase;
+    }
+
+    h2.section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fbfcfe;
+    }
+
+    .skills {
+      display: grid;
+      gap: 14px;
+    }
+
+    .skill-group strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .skill-group p,
+    .edu p,
+    .language p,
+    .extra p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 5px 10px;
+      border: 1px solid #dce6f5;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1f406f;
+      font-size: 0.84rem;
+      font-weight: 650;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .item {
+      position: relative;
+      padding: 20px 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 20px;
+      bottom: 20px;
+      width: 4px;
+      border-radius: 0 999px 999px 0;
+      background: var(--accent);
+    }
+
+    .item-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }
+
+    .meta {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .date {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 0.86rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    ul.clean {
+      margin: 10px 0 0;
+      padding-left: 1.15rem;
+      color: var(--muted);
+    }
+
+    ul.clean li {
+      margin: 6px 0;
+      padding-left: 2px;
+    }
+
+    .edu,
+    .language,
+    .extra {
+      display: grid;
+      gap: 14px;
+    }
+
+    .small-title {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-weight: 750;
+    }
+
+    footer {
+      padding: 18px 46px 26px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+      background: #fbfcfe;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .layout {
+        padding-top: 28px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+      }
+
+      .hero,
+      .layout,
+      footer {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .item-head {
+        grid-template-columns: 1fr;
+      }
+
+      .date {
+        justify-self: start;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .hero,
+      .layout,
+      footer {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .actions,
+      footer {
+        display: none;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .item,
+      .panel,
+      .contact-card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Резюме</p>
+        <h1>Кравчук<br />Владислава</h1>
+        <p class="role">Стажёр product / project manager</p>
+        <p class="summary">
+          Начинающий специалист в области продуктового и проектного менеджмента с опытом исследований,
+          анализа пользовательских сценариев, работы с клиентскими и корпоративными данными, координации
+          процессов и подготовки рекомендаций для развития продуктов.
+        </p>
+      </div>
+
+      <div class="contact-card" aria-label="Контактная информация">
+        <h2>Контакты</h2>
+        <ul class="contact-list">
+          <li><span>Локация</span>Санкт-Петербург, Россия</li>
+          <li><span>Телефон</span><a href="tel:+79211875137">+7 921 187 51 37</a></li>
+          <li><span>Email</span><a href="mailto:vladislava05@inbox.ru">vladislava05@inbox.ru</a></li>
+          <li><span>Telegram</span><a href="https://t.me/chukkravchuk" target="_blank" rel="noreferrer">@chukkravchuk</a></li>
+          <li><span>Гражданство</span>РФ</li>
+        </ul>
+        <div class="actions">
+          <a class="button primary" href="mailto:vladislava05@inbox.ru">Написать</a>
+          <button class="button" type="button" onclick="window.print()">Печать / PDF</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside>
+        <section class="panel" aria-labelledby="skills-title">
+          <h2 class="section-title" id="skills-title">Навыки</h2>
+          <div class="skills">
+            <div class="skill-group">
+              <strong>Продуктовый менеджмент</strong>
+              <p>Анализ пользовательских сценариев, формулирование гипотез, поиск точек роста, работа с пользовательской ценностью.</p>
+            </div>
+            <div class="skill-group">
+              <strong>Проектный менеджмент</strong>
+              <p>Декомпозиция задач, координация процессов, контроль сроков, распределение задач, командное взаимодействие.</p>
+            </div>
+            <div class="skill-group">
+              <strong>UX-исследования</strong>
+              <p>Анализ потребностей аудитории, выявление барьеров в интерфейсе, рекомендации по улучшению продукта.</p>
+            </div>
+            <div class="skill-group">
+              <strong>Аналитика и метрики</strong>
+              <p>Базовое понимание конверсий, удержания пользователей, доли отказов, сегментации, проверки гипотез и интерпретации результатов.</p>
+            </div>
+            <div class="skill-group">
+              <strong>Работа с данными</strong>
+              <p>Очистка, структурирование, верификация данных, подготовка аналитических таблиц и отчётов.</p>
+            </div>
+            <div class="skill-group">
+              <strong>Коммуникация</strong>
+              <p>Сбор и уточнение требований, постановка задач, подготовка выводов, презентаций и рекомендаций.</p>
+            </div>
+          </div>
+          <div class="tags" aria-label="Инструменты">
+            <span class="tag">Excel</span>
+            <span class="tag">Google Таблицы</span>
+            <span class="tag">Power BI</span>
+            <span class="tag">DataLens</span>
+            <span class="tag">Figma</span>
+            <span class="tag">Miro</span>
+            <span class="tag">Jira</span>
+            <span class="tag">Trello</span>
+            <span class="tag">AI-инструменты</span>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="education-title">
+          <h2 class="section-title" id="education-title">Образование</h2>
+          <div class="edu">
+            <p>
+              <span class="small-title">Санкт-Петербургский государственный университет</span>
+              Социологические исследования в цифровом обществе, 3 курс<br />
+              Санкт-Петербург · 2023 — 2027
+            </p>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="extra-title">
+          <h2 class="section-title" id="extra-title">Доп. образование</h2>
+          <div class="extra">
+            <p><span class="small-title">Летняя социологическая школа МГУ</span>Исследования, статистика, аналитика и работа с данными.</p>
+            <p><span class="small-title">Менторские программы</span>Участие в менторствах в университете и Альфа-Банке.</p>
+            <p><span class="small-title">Дополнительные курсы</span>Аналитика данных, основы статистики, цифровые инструменты, исследовательские методы.</p>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="languages-title">
+          <h2 class="section-title" id="languages-title">Языки</h2>
+          <div class="language">
+            <p><span class="small-title">Русский</span>Родной</p>
+            <p><span class="small-title">Английский</span>B2</p>
+          </div>
+        </section>
+      </aside>
+
+      <main>
+        <section aria-labelledby="profile-title">
+          <h2 class="section-title" id="profile-title">Профиль</h2>
+          <div class="item">
+            <p class="meta">
+              Имею опыт выявления проблем в пользовательском опыте, формулирования гипотез, структурирования
+              данных и оптимизации операционных процессов. Интересуюсь цифровыми продуктами, исследованиями
+              пользовательского опыта, продуктовыми метриками, приоритизацией задач и управлением проектами.
+            </p>
+          </div>
+        </section>
+
+        <section aria-labelledby="experience-title">
+          <h2 class="section-title" id="experience-title">Опыт работы</h2>
+          <div class="timeline">
+            <article class="item">
+              <div class="item-head">
+                <div>
+                  <h3>Ассистент по исследованию клиентских данных</h3>
+                  <p class="meta">ITchaser.org</p>
+                </div>
+                <span class="date">Сентябрь 2025 — Декабрь 2025</span>
+              </div>
+              <ul class="clean">
+                <li>Сформировала и структурировала базу из 200+ контактов компаний для дальнейшей работы в системе управления клиентскими данными.</li>
+                <li>Проверяла, очищала, сегментировала и систематизировала маркетинговые и клиентские данные.</li>
+                <li>Подготовила 300+ профилей компаний, обеспечив полноту и консистентность данных для дальнейшей работы команды.</li>
+                <li>Снизила долю невалидных контактов до &lt;5% за счёт внедрения инструментов проверки данных.</li>
+                <li>Снизила долю недоставленных email-рассылок до &lt;5% за счёт улучшения качества базы.</li>
+                <li>Оптимизировала процесс сбора и обработки данных, сократив время обработки контактов на 30%.</li>
+              </ul>
+            </article>
+
+            <article class="item">
+              <div class="item-head">
+                <div>
+                  <h3>Менеджер точки общественного питания</h3>
+                  <p class="meta">ООО «ЗИМАЛЕТО»</p>
+                </div>
+                <span class="date">Апрель 2022 — Июнь 2025</span>
+              </div>
+              <ul class="clean">
+                <li>Координировала операционные процессы на крупных мероприятиях с потоком до 5000 клиентов за смену.</li>
+                <li>Руководила сменой из 20+ сотрудников: распределяла задачи, контролировала выполнение и адаптацию новых сотрудников.</li>
+                <li>Анализировала узкие места в клиентском потоке, работе кассовой зоны и процессе обслуживания.</li>
+                <li>Оптимизировала процесс обслуживания, что позволило сократить среднее время обслуживания клиентов на 15%.</li>
+                <li>Работала в условиях высокой нагрузки, быстро приоритизировала задачи и обеспечивала стабильную работу команды.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section aria-labelledby="projects-title">
+          <h2 class="section-title" id="projects-title">Проектный опыт</h2>
+          <div class="timeline">
+            <article class="item">
+              <div class="item-head">
+                <div>
+                  <h3>Исследовательский проект для Popsters</h3>
+                  <p class="meta">UX-исследование сервиса аналитики социальных сетей</p>
+                </div>
+                <span class="date">2026</span>
+              </div>
+              <ul class="clean">
+                <li>Исследовала пользовательский опыт сервиса и удобство интерфейса.</li>
+                <li>Анализировала пользовательские сценарии, барьеры в интерфейсе и точки улучшения продукта.</li>
+                <li>Формулировала гипотезы о поведении пользователей и готовила рекомендации по улучшению пользовательского опыта.</li>
+                <li>Рассматривала продукт с точки зрения пользовательской ценности, понятности интерфейса и потенциальных точек роста.</li>
+              </ul>
+            </article>
+
+            <article class="item">
+              <div class="item-head">
+                <div>
+                  <h3>Исследовательский проект для «Города проектировщиков»</h3>
+                  <p class="meta">Анализ аудитории и направлений развития</p>
+                </div>
+                <span class="date">2025</span>
+              </div>
+              <ul class="clean">
+                <li>Изучала возможности расширения аудитории проекта и поиска новых направлений развития.</li>
+                <li>Анализировала целевые сегменты, потребности аудитории и потенциальные точки роста.</li>
+                <li>Участвовала в подготовке аналитических выводов и рекомендаций для развития проекта.</li>
+                <li>Структурировала идеи развития проекта и оценивала их с точки зрения потребностей пользователей.</li>
+              </ul>
+            </article>
+
+            <article class="item">
+              <div class="item-head">
+                <div>
+                  <h3>Исследовательский проект для фонда «Анна помогает»</h3>
+                  <p class="meta">Качественные исследования и рекомендации</p>
+                </div>
+                <span class="date">2025</span>
+              </div>
+              <ul class="clean">
+                <li>Исследовала интересы и потребности выпускников детских домов.</li>
+                <li>Работала с качественными данными, анализировала ответы респондентов и выделяла ключевые паттерны.</li>
+                <li>Подготавливала выводы и рекомендации на основе собранных данных.</li>
+                <li>Формировала понимание целевой аудитории и её потребностей для дальнейшей работы над проектными решениями.</li>
+              </ul>
+            </article>
+
+            <article class="item">
+              <div class="item-head">
+                <div>
+                  <h3>Практика во «ВКонтакте»</h3>
+                  <p class="meta">Знакомство с продуктовой средой цифровой компании</p>
+                </div>
+                <span class="date">2024</span>
+              </div>
+              <ul class="clean">
+                <li>Познакомилась с работой цифровой компании и внутренними процессами команды.</li>
+                <li>Получила опыт анализа задач, командного взаимодействия и работы с продуктовой средой.</li>
+                <li>Изучала подходы к организации работы над цифровыми продуктами и коммуникации между участниками команды.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      © 2026 Кравчук Владислава · Резюме для стажировки product / project manager
+    </footer>
+  </div>
+</body>
+</html>
