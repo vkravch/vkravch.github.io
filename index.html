@@ -16,6 +16,7 @@
       --accent: #2e3a59;
       --accent-2: #0056b3;
       --accent-soft: #edf3ff;
+      --success-soft: #eef7f2;
       --shadow: 0 18px 45px rgba(23, 32, 51, 0.08);
       --radius: 22px;
     }
@@ -48,6 +49,11 @@
       text-decoration: underline;
     }
 
+    button,
+    summary {
+      font: inherit;
+    }
+
     .page {
       width: min(1180px, calc(100% - 32px));
       margin: 32px auto;
@@ -60,7 +66,7 @@
 
     .hero {
       display: grid;
-      grid-template-columns: 1.6fr 1fr;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, 0.85fr);
       gap: 28px;
       padding: 42px 46px 34px;
       background: linear-gradient(135deg, #ffffff 0%, #f6f8fc 100%);
@@ -152,6 +158,13 @@
       font-size: 0.92rem;
       font-weight: 650;
       cursor: pointer;
+      text-decoration: none;
+    }
+
+    .button:hover,
+    .button:focus {
+      text-decoration: none;
+      border-color: var(--accent-2);
     }
 
     .button.primary {
@@ -160,28 +173,95 @@
       color: #ffffff;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 34px;
-      padding: 34px 46px 46px;
+    .button.primary:hover,
+    .button.primary:focus {
+      background: #24304b;
+      border-color: #24304b;
     }
 
-    aside {
+    .contact-menu {
+      position: relative;
+      display: inline-flex;
+    }
+
+    .contact-options {
+      position: absolute;
+      z-index: 10;
+      top: calc(100% + 10px);
+      left: 0;
+      width: min(250px, calc(100vw - 48px));
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 18px 42px rgba(23, 32, 51, 0.14);
+    }
+
+    .contact-options[hidden] {
+      display: none;
+    }
+
+    .contact-options a {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 0.93rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .contact-options a:hover,
+    .contact-options a:focus {
+      background: var(--accent-soft);
+    }
+
+    .contact-options small {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      grid-template-areas: "content sidebar";
+      gap: 34px;
+      padding: 34px 46px 46px;
+      align-items: start;
+    }
+
+    .content {
+      grid-area: content;
+      min-width: 0;
+    }
+
+    .sidebar {
+      grid-area: sidebar;
       display: grid;
       align-content: start;
       gap: 22px;
+      min-width: 0;
     }
 
-    main {
-      min-width: 0;
+    @media (min-width: 921px) {
+      .sidebar {
+        position: sticky;
+        top: 22px;
+      }
     }
 
     section {
       margin: 0 0 30px;
     }
 
-    h2.section-title {
+    .sidebar section,
+    .sidebar details.panel {
+      margin-bottom: 0;
+    }
+
+    h2.section-title,
+    .panel-title {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -192,7 +272,8 @@
       text-transform: uppercase;
     }
 
-    h2.section-title::after {
+    h2.section-title::after,
+    .panel-title::after {
       content: "";
       flex: 1;
       height: 1px;
@@ -206,23 +287,97 @@
       background: #fbfcfe;
     }
 
-    .skills {
-      display: grid;
-      gap: 14px;
+    .panel > summary {
+      margin: 0;
+      list-style: none;
+      cursor: pointer;
     }
 
-    .skill-group strong {
-      display: block;
-      margin-bottom: 5px;
+    .panel > summary::-webkit-details-marker,
+    .skill-toggle summary::-webkit-details-marker,
+    .sidebar-toggle summary::-webkit-details-marker,
+    .item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .panel > summary .panel-title {
+      margin-bottom: 0;
+    }
+
+    .panel > summary .panel-title::before,
+    .skill-toggle summary::after,
+    .sidebar-toggle summary::after,
+    .item summary::after {
+      content: "+";
+      display: inline-grid;
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .panel[open] > summary .panel-title::before,
+    .skill-toggle[open] summary::after,
+    .sidebar-toggle[open] summary::after,
+    .item[open] summary::after {
+      content: "−";
+    }
+
+    .panel > summary .panel-title::after {
+      order: 3;
+    }
+
+    .panel-body {
+      margin-top: 18px;
+    }
+
+    .skills,
+    .sidebar-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .skill-toggle,
+    .sidebar-toggle {
+      border-bottom: 1px solid rgba(217, 224, 234, 0.7);
+      padding-bottom: 10px;
+    }
+
+    .skill-toggle:last-child,
+    .sidebar-toggle:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .skill-toggle summary,
+    .sidebar-toggle summary,
+    .item summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .skill-toggle summary,
+    .sidebar-toggle summary {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
       color: var(--text);
       font-size: 0.95rem;
+      font-weight: 750;
     }
 
-    .skill-group p,
-    .edu p,
+    .skill-toggle p,
+    .sidebar-toggle p,
     .language p,
     .extra p {
-      margin: 0;
+      margin: 6px 0 0;
       color: var(--muted);
       font-size: 0.94rem;
     }
@@ -231,7 +386,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 16px;
     }
 
     .tag {
@@ -271,10 +426,25 @@
 
     .item-head {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 12px;
       align-items: start;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+    }
+
+    .item summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .item summary .item-head {
+      margin-bottom: 0;
+    }
+
+    .item:not([open]) summary .date {
+      background: var(--success-soft);
     }
 
     h3 {
@@ -301,7 +471,7 @@
     }
 
     ul.clean {
-      margin: 10px 0 0;
+      margin: 12px 0 0;
       padding-left: 1.15rem;
       color: var(--muted);
     }
@@ -309,13 +479,6 @@
     ul.clean li {
       margin: 6px 0;
       padding-left: 2px;
-    }
-
-    .edu,
-    .language,
-    .extra {
-      display: grid;
-      gap: 14px;
     }
 
     .small-title {
@@ -341,7 +504,14 @@
       }
 
       .layout {
+        grid-template-areas:
+          "content"
+          "sidebar";
         padding-top: 28px;
+      }
+
+      .sidebar {
+        position: static;
       }
     }
 
@@ -361,12 +531,28 @@
         padding-right: 22px;
       }
 
-      .item-head {
+      .hero {
+        padding-top: 30px;
+      }
+
+      .contact-card,
+      .panel,
+      .item {
+        border-radius: 16px;
+      }
+
+      .item-head,
+      .item summary {
         grid-template-columns: 1fr;
       }
 
       .date {
         justify-self: start;
+      }
+
+      .contact-options {
+        left: auto;
+        right: 0;
       }
     }
 
@@ -391,8 +577,22 @@
       }
 
       .actions,
-      footer {
-        display: none;
+      footer,
+      .skill-toggle summary::after,
+      .sidebar-toggle summary::after,
+      .item summary::after,
+      .panel > summary .panel-title::before {
+        display: none !important;
+      }
+
+      .layout {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        grid-template-areas: "content sidebar";
+        gap: 22px;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
       }
 
       a {
@@ -431,85 +631,32 @@
           <li><span>Гражданство</span>РФ</li>
         </ul>
         <div class="actions">
-          <a class="button primary" href="mailto:vladislava05@inbox.ru">Написать</a>
-          <button class="button" type="button" onclick="window.print()">Печать / PDF</button>
+          <div class="contact-menu">
+            <button class="button primary" type="button" id="contactToggle" aria-expanded="false" aria-controls="contactOptions">
+              Связаться
+            </button>
+            <div class="contact-options" id="contactOptions" hidden>
+              <a href="mailto:vladislava05@inbox.ru">
+                Почта
+                <small>vladislava05@inbox.ru</small>
+              </a>
+              <a href="https://t.me/chukkravchuk" target="_blank" rel="noreferrer">
+                Telegram
+                <small>@chukkravchuk</small>
+              </a>
+              <a href="tel:+79211875137">
+                Позвонить
+                <small>+7 921 187 51 37</small>
+              </a>
+            </div>
+          </div>
+          <a class="button" href="./cv.pdf" download="cv.pdf" type="application/pdf">Печать / PDF</a>
         </div>
       </div>
     </header>
 
     <div class="layout">
-      <aside>
-        <section class="panel" aria-labelledby="skills-title">
-          <h2 class="section-title" id="skills-title">Навыки</h2>
-          <div class="skills">
-            <div class="skill-group">
-              <strong>Продуктовый менеджмент</strong>
-              <p>Анализ пользовательских сценариев, формулирование гипотез, поиск точек роста, работа с пользовательской ценностью.</p>
-            </div>
-            <div class="skill-group">
-              <strong>Проектный менеджмент</strong>
-              <p>Декомпозиция задач, координация процессов, контроль сроков, распределение задач, командное взаимодействие.</p>
-            </div>
-            <div class="skill-group">
-              <strong>UX-исследования</strong>
-              <p>Анализ потребностей аудитории, выявление барьеров в интерфейсе, рекомендации по улучшению продукта.</p>
-            </div>
-            <div class="skill-group">
-              <strong>Аналитика и метрики</strong>
-              <p>Базовое понимание конверсий, удержания пользователей, доли отказов, сегментации, проверки гипотез и интерпретации результатов.</p>
-            </div>
-            <div class="skill-group">
-              <strong>Работа с данными</strong>
-              <p>Очистка, структурирование, верификация данных, подготовка аналитических таблиц и отчётов.</p>
-            </div>
-            <div class="skill-group">
-              <strong>Коммуникация</strong>
-              <p>Сбор и уточнение требований, постановка задач, подготовка выводов, презентаций и рекомендаций.</p>
-            </div>
-          </div>
-          <div class="tags" aria-label="Инструменты">
-            <span class="tag">Excel</span>
-            <span class="tag">Google Таблицы</span>
-            <span class="tag">Power BI</span>
-            <span class="tag">DataLens</span>
-            <span class="tag">Figma</span>
-            <span class="tag">Miro</span>
-            <span class="tag">Jira</span>
-            <span class="tag">Trello</span>
-            <span class="tag">AI-инструменты</span>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="education-title">
-          <h2 class="section-title" id="education-title">Образование</h2>
-          <div class="edu">
-            <p>
-              <span class="small-title">Санкт-Петербургский государственный университет</span>
-              Социологические исследования в цифровом обществе, 3 курс<br />
-              Санкт-Петербург · 2023 — 2027
-            </p>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="extra-title">
-          <h2 class="section-title" id="extra-title">Доп. образование</h2>
-          <div class="extra">
-            <p><span class="small-title">Летняя социологическая школа МГУ</span>Исследования, статистика, аналитика и работа с данными.</p>
-            <p><span class="small-title">Менторские программы</span>Участие в менторствах в университете и Альфа-Банке.</p>
-            <p><span class="small-title">Дополнительные курсы</span>Аналитика данных, основы статистики, цифровые инструменты, исследовательские методы.</p>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="languages-title">
-          <h2 class="section-title" id="languages-title">Языки</h2>
-          <div class="language">
-            <p><span class="small-title">Русский</span>Родной</p>
-            <p><span class="small-title">Английский</span>B2</p>
-          </div>
-        </section>
-      </aside>
-
-      <main>
+      <main class="content">
         <section aria-labelledby="profile-title">
           <h2 class="section-title" id="profile-title">Профиль</h2>
           <div class="item">
@@ -524,14 +671,16 @@
         <section aria-labelledby="experience-title">
           <h2 class="section-title" id="experience-title">Опыт работы</h2>
           <div class="timeline">
-            <article class="item">
-              <div class="item-head">
-                <div>
-                  <h3>Ассистент по исследованию клиентских данных</h3>
-                  <p class="meta">ITchaser.org</p>
+            <details class="item" open>
+              <summary aria-label="Показать или скрыть пункты опыта в ITchaser.org">
+                <div class="item-head">
+                  <div>
+                    <h3>Ассистент по исследованию клиентских данных</h3>
+                    <p class="meta">ITchaser.org</p>
+                  </div>
+                  <span class="date">Сентябрь 2025 — Декабрь 2025</span>
                 </div>
-                <span class="date">Сентябрь 2025 — Декабрь 2025</span>
-              </div>
+              </summary>
               <ul class="clean">
                 <li>Сформировала и структурировала базу из 200+ контактов компаний для дальнейшей работы в системе управления клиентскими данными.</li>
                 <li>Проверяла, очищала, сегментировала и систематизировала маркетинговые и клиентские данные.</li>
@@ -540,16 +689,18 @@
                 <li>Снизила долю недоставленных email-рассылок до &lt;5% за счёт улучшения качества базы.</li>
                 <li>Оптимизировала процесс сбора и обработки данных, сократив время обработки контактов на 30%.</li>
               </ul>
-            </article>
+            </details>
 
-            <article class="item">
-              <div class="item-head">
-                <div>
-                  <h3>Менеджер точки общественного питания</h3>
-                  <p class="meta">ООО «ЗИМАЛЕТО»</p>
+            <details class="item" open>
+              <summary aria-label="Показать или скрыть пункты опыта в ООО ЗИМАЛЕТО">
+                <div class="item-head">
+                  <div>
+                    <h3>Менеджер точки общественного питания</h3>
+                    <p class="meta">ООО «ЗИМАЛЕТО»</p>
+                  </div>
+                  <span class="date">Апрель 2022 — Июнь 2025</span>
                 </div>
-                <span class="date">Апрель 2022 — Июнь 2025</span>
-              </div>
+              </summary>
               <ul class="clean">
                 <li>Координировала операционные процессы на крупных мероприятиях с потоком до 5000 клиентов за смену.</li>
                 <li>Руководила сменой из 20+ сотрудников: распределяла задачи, контролировала выполнение и адаптацию новых сотрудников.</li>
@@ -557,83 +708,210 @@
                 <li>Оптимизировала процесс обслуживания, что позволило сократить среднее время обслуживания клиентов на 15%.</li>
                 <li>Работала в условиях высокой нагрузки, быстро приоритизировала задачи и обеспечивала стабильную работу команды.</li>
               </ul>
-            </article>
+            </details>
           </div>
         </section>
 
         <section aria-labelledby="projects-title">
           <h2 class="section-title" id="projects-title">Проектный опыт</h2>
           <div class="timeline">
-            <article class="item">
-              <div class="item-head">
-                <div>
-                  <h3>Исследовательский проект для Popsters</h3>
-                  <p class="meta">UX-исследование сервиса аналитики социальных сетей</p>
+            <details class="item" open>
+              <summary aria-label="Показать или скрыть пункты проекта Popsters">
+                <div class="item-head">
+                  <div>
+                    <h3>Исследовательский проект для Popsters</h3>
+                    <p class="meta">UX-исследование сервиса аналитики социальных сетей</p>
+                  </div>
+                  <span class="date">2026</span>
                 </div>
-                <span class="date">2026</span>
-              </div>
+              </summary>
               <ul class="clean">
                 <li>Исследовала пользовательский опыт сервиса и удобство интерфейса.</li>
                 <li>Анализировала пользовательские сценарии, барьеры в интерфейсе и точки улучшения продукта.</li>
                 <li>Формулировала гипотезы о поведении пользователей и готовила рекомендации по улучшению пользовательского опыта.</li>
                 <li>Рассматривала продукт с точки зрения пользовательской ценности, понятности интерфейса и потенциальных точек роста.</li>
               </ul>
-            </article>
+            </details>
 
-            <article class="item">
-              <div class="item-head">
-                <div>
-                  <h3>Исследовательский проект для «Города проектировщиков»</h3>
-                  <p class="meta">Анализ аудитории и направлений развития</p>
+            <details class="item" open>
+              <summary aria-label="Показать или скрыть пункты проекта Город проектировщиков">
+                <div class="item-head">
+                  <div>
+                    <h3>Исследовательский проект для «Города проектировщиков»</h3>
+                    <p class="meta">Анализ аудитории и направлений развития</p>
+                  </div>
+                  <span class="date">2025</span>
                 </div>
-                <span class="date">2025</span>
-              </div>
+              </summary>
               <ul class="clean">
                 <li>Изучала возможности расширения аудитории проекта и поиска новых направлений развития.</li>
                 <li>Анализировала целевые сегменты, потребности аудитории и потенциальные точки роста.</li>
                 <li>Участвовала в подготовке аналитических выводов и рекомендаций для развития проекта.</li>
                 <li>Структурировала идеи развития проекта и оценивала их с точки зрения потребностей пользователей.</li>
               </ul>
-            </article>
+            </details>
 
-            <article class="item">
-              <div class="item-head">
-                <div>
-                  <h3>Исследовательский проект для фонда «Анна помогает»</h3>
-                  <p class="meta">Качественные исследования и рекомендации</p>
+            <details class="item" open>
+              <summary aria-label="Показать или скрыть пункты проекта фонда Анна помогает">
+                <div class="item-head">
+                  <div>
+                    <h3>Исследовательский проект для фонда «Анна помогает»</h3>
+                    <p class="meta">Качественные исследования и рекомендации</p>
+                  </div>
+                  <span class="date">2025</span>
                 </div>
-                <span class="date">2025</span>
-              </div>
+              </summary>
               <ul class="clean">
                 <li>Исследовала интересы и потребности выпускников детских домов.</li>
                 <li>Работала с качественными данными, анализировала ответы респондентов и выделяла ключевые паттерны.</li>
                 <li>Подготавливала выводы и рекомендации на основе собранных данных.</li>
                 <li>Формировала понимание целевой аудитории и её потребностей для дальнейшей работы над проектными решениями.</li>
               </ul>
-            </article>
+            </details>
 
-            <article class="item">
-              <div class="item-head">
-                <div>
-                  <h3>Практика во «ВКонтакте»</h3>
-                  <p class="meta">Знакомство с продуктовой средой цифровой компании</p>
+            <details class="item" open>
+              <summary aria-label="Показать или скрыть пункты практики во ВКонтакте">
+                <div class="item-head">
+                  <div>
+                    <h3>Практика во «ВКонтакте»</h3>
+                    <p class="meta">Знакомство с продуктовой средой цифровой компании</p>
+                  </div>
+                  <span class="date">2024</span>
                 </div>
-                <span class="date">2024</span>
-              </div>
+              </summary>
               <ul class="clean">
                 <li>Познакомилась с работой цифровой компании и внутренними процессами команды.</li>
                 <li>Получила опыт анализа задач, командного взаимодействия и работы с продуктовой средой.</li>
                 <li>Изучала подходы к организации работы над цифровыми продуктами и коммуникации между участниками команды.</li>
               </ul>
-            </article>
+            </details>
           </div>
         </section>
       </main>
+
+      <aside class="sidebar">
+        <details class="panel" open>
+          <summary><h2 class="panel-title">Навыки</h2></summary>
+          <div class="panel-body">
+            <div class="skills">
+              <details class="skill-toggle" open>
+                <summary>Продуктовый менеджмент</summary>
+                <p>Анализ пользовательских сценариев, формулирование гипотез, поиск точек роста, работа с пользовательской ценностью.</p>
+              </details>
+              <details class="skill-toggle" open>
+                <summary>Проектный менеджмент</summary>
+                <p>Декомпозиция задач, координация процессов, контроль сроков, распределение задач, командное взаимодействие.</p>
+              </details>
+              <details class="skill-toggle" open>
+                <summary>UX-исследования</summary>
+                <p>Анализ потребностей аудитории, выявление барьеров в интерфейсе, рекомендации по улучшению продукта.</p>
+              </details>
+              <details class="skill-toggle" open>
+                <summary>Аналитика и метрики</summary>
+                <p>Базовое понимание конверсий, удержания пользователей, доли отказов, сегментации, проверки гипотез и интерпретации результатов.</p>
+              </details>
+              <details class="skill-toggle" open>
+                <summary>Работа с данными</summary>
+                <p>Очистка, структурирование, верификация данных, подготовка аналитических таблиц и отчётов.</p>
+              </details>
+              <details class="skill-toggle" open>
+                <summary>Коммуникация</summary>
+                <p>Сбор и уточнение требований, постановка задач, подготовка выводов, презентаций и рекомендаций.</p>
+              </details>
+            </div>
+            <div class="tags" aria-label="Инструменты">
+              <span class="tag">Excel</span>
+              <span class="tag">Google Таблицы</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">DataLens</span>
+              <span class="tag">Figma</span>
+              <span class="tag">Miro</span>
+              <span class="tag">Jira</span>
+              <span class="tag">Trello</span>
+              <span class="tag">AI-инструменты</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="panel" open>
+          <summary><h2 class="panel-title">Образование</h2></summary>
+          <div class="panel-body sidebar-list">
+            <details class="sidebar-toggle" open>
+              <summary>Санкт-Петербургский государственный университет</summary>
+              <p>
+                Социологические исследования в цифровом обществе, 3 курс<br />
+                Санкт-Петербург · 2023 — 2027
+              </p>
+            </details>
+          </div>
+        </details>
+
+        <details class="panel" open>
+          <summary><h2 class="panel-title">Доп. образование</h2></summary>
+          <div class="panel-body sidebar-list">
+            <details class="sidebar-toggle" open>
+              <summary>Летняя социологическая школа МГУ</summary>
+              <p>Исследования, статистика, аналитика и работа с данными.</p>
+            </details>
+            <details class="sidebar-toggle" open>
+              <summary>Менторские программы</summary>
+              <p>Участие в менторствах в университете и Альфа-Банке.</p>
+            </details>
+            <details class="sidebar-toggle" open>
+              <summary>Дополнительные курсы</summary>
+              <p>Аналитика данных, основы статистики, цифровые инструменты, исследовательские методы.</p>
+            </details>
+          </div>
+        </details>
+
+        <details class="panel" open>
+          <summary><h2 class="panel-title">Языки</h2></summary>
+          <div class="panel-body sidebar-list">
+            <details class="sidebar-toggle" open>
+              <summary>Русский</summary>
+              <p>Родной</p>
+            </details>
+            <details class="sidebar-toggle" open>
+              <summary>Английский</summary>
+              <p>B2</p>
+            </details>
+          </div>
+        </details>
+      </aside>
     </div>
 
     <footer>
       © 2026 Кравчук Владислава · Резюме для стажировки product / project manager
     </footer>
   </div>
+
+  <script>
+    const contactToggle = document.getElementById('contactToggle');
+    const contactOptions = document.getElementById('contactOptions');
+
+    function closeContactMenu() {
+      contactOptions.hidden = true;
+      contactToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    contactToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const isOpen = contactToggle.getAttribute('aria-expanded') === 'true';
+      contactOptions.hidden = isOpen;
+      contactToggle.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!contactOptions.hidden && !event.target.closest('.contact-menu')) {
+        closeContactMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeContactMenu();
+      }
+    });
+  </script>
 </body>
 </html>
