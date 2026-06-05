@@ -179,49 +179,6 @@
       border-color: #24304b;
     }
 
-    .contact-menu {
-      position: relative;
-      display: inline-flex;
-    }
-
-    .contact-options {
-      position: absolute;
-      z-index: 10;
-      top: calc(100% + 10px);
-      left: 0;
-      width: min(250px, calc(100vw - 48px));
-      padding: 8px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: #ffffff;
-      box-shadow: 0 18px 42px rgba(23, 32, 51, 0.14);
-    }
-
-    .contact-options[hidden] {
-      display: none;
-    }
-
-    .contact-options a {
-      display: grid;
-      gap: 2px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--text);
-      font-size: 0.93rem;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .contact-options a:hover,
-    .contact-options a:focus {
-      background: var(--accent-soft);
-    }
-
-    .contact-options small {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
     .layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
@@ -255,7 +212,6 @@
       margin: 0 0 30px;
     }
 
-    .sidebar section,
     .sidebar details.panel {
       margin-bottom: 0;
     }
@@ -294,8 +250,6 @@
     }
 
     .panel > summary::-webkit-details-marker,
-    .skill-toggle summary::-webkit-details-marker,
-    .sidebar-toggle summary::-webkit-details-marker,
     .item summary::-webkit-details-marker {
       display: none;
     }
@@ -304,10 +258,7 @@
       margin-bottom: 0;
     }
 
-    .panel > summary .panel-title::before,
-    .skill-toggle summary::after,
-    .sidebar-toggle summary::after,
-    .item summary::after {
+    .panel > summary .panel-title::before {
       content: "+";
       display: inline-grid;
       flex: 0 0 auto;
@@ -322,10 +273,7 @@
       line-height: 1;
     }
 
-    .panel[open] > summary .panel-title::before,
-    .skill-toggle[open] summary::after,
-    .sidebar-toggle[open] summary::after,
-    .item[open] summary::after {
+    .panel[open] > summary .panel-title::before {
       content: "−";
     }
 
@@ -337,47 +285,39 @@
       margin-top: 18px;
     }
 
-    .skills,
-    .sidebar-list {
+    .skill-list,
+    .info-list {
       display: grid;
-      gap: 10px;
-    }
-
-    .skill-toggle,
-    .sidebar-toggle {
-      border-bottom: 1px solid rgba(217, 224, 234, 0.7);
-      padding-bottom: 10px;
-    }
-
-    .skill-toggle:last-child,
-    .sidebar-toggle:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .skill-toggle summary,
-    .sidebar-toggle summary,
-    .item summary {
+      gap: 12px;
+      margin: 0;
+      padding: 0;
       list-style: none;
-      cursor: pointer;
     }
 
-    .skill-toggle summary,
-    .sidebar-toggle summary {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
+    .skill-list li,
+    .info-list li {
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(217, 224, 234, 0.7);
+    }
+
+    .skill-list li:last-child,
+    .info-list li:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .skill-list strong,
+    .info-list strong,
+    .small-title {
+      display: block;
+      margin-bottom: 4px;
       color: var(--text);
-      font-size: 0.95rem;
       font-weight: 750;
     }
 
-    .skill-toggle p,
-    .sidebar-toggle p,
-    .language p,
-    .extra p {
-      margin: 6px 0 0;
+    .skill-list p,
+    .info-list p {
+      margin: 0;
       color: var(--muted);
       font-size: 0.94rem;
     }
@@ -424,23 +364,40 @@
       background: var(--accent);
     }
 
+    .item summary {
+      position: relative;
+      display: block;
+      padding-right: 36px;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .item summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: 2px;
+      display: inline-grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .item[open] summary::after {
+      content: "−";
+    }
+
     .item-head {
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
       gap: 12px;
       align-items: start;
-      margin-bottom: 8px;
-    }
-
-    .item summary {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
-      align-items: start;
-    }
-
-    .item summary .item-head {
-      margin-bottom: 0;
     }
 
     .item:not([open]) summary .date {
@@ -481,11 +438,76 @@
       padding-left: 2px;
     }
 
-    .small-title {
+    .qr-modal {
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(13, 20, 35, 0.78);
+      backdrop-filter: blur(6px);
+    }
+
+    .qr-modal[hidden] {
+      display: none;
+    }
+
+    .qr-dialog {
+      position: relative;
+      width: min(520px, 100%);
+      padding: 34px;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.26);
+      text-align: center;
+    }
+
+    .qr-dialog h2 {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: clamp(1.35rem, 4vw, 1.8rem);
+    }
+
+    .qr-dialog p {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .qr-image {
+      width: min(320px, 78vw);
+      height: auto;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #ffffff;
+    }
+
+    .qr-url {
       display: block;
-      margin-bottom: 4px;
-      color: var(--text);
-      font-weight: 750;
+      margin-top: 18px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .qr-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--accent);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .qr-close:hover,
+    .qr-close:focus {
+      border-color: var(--accent-2);
     }
 
     footer {
@@ -541,8 +563,7 @@
         border-radius: 16px;
       }
 
-      .item-head,
-      .item summary {
+      .item-head {
         grid-template-columns: 1fr;
       }
 
@@ -550,9 +571,8 @@
         justify-self: start;
       }
 
-      .contact-options {
-        left: auto;
-        right: 0;
+      .qr-dialog {
+        padding: 30px 18px 24px;
       }
     }
 
@@ -577,9 +597,8 @@
       }
 
       .actions,
+      .qr-modal,
       footer,
-      .skill-toggle summary::after,
-      .sidebar-toggle summary::after,
       .item summary::after,
       .panel > summary .panel-title::before {
         display: none !important;
@@ -631,26 +650,10 @@
           <li><span>Гражданство</span>РФ</li>
         </ul>
         <div class="actions">
-          <div class="contact-menu">
-            <button class="button primary" type="button" id="contactToggle" aria-expanded="false" aria-controls="contactOptions">
-              Связаться
-            </button>
-            <div class="contact-options" id="contactOptions" hidden>
-              <a href="mailto:vladislava05@inbox.ru">
-                Почта
-                <small>vladislava05@inbox.ru</small>
-              </a>
-              <a href="https://t.me/chukkravchuk" target="_blank" rel="noreferrer">
-                Telegram
-                <small>@chukkravchuk</small>
-              </a>
-              <a href="tel:+79211875137">
-                Позвонить
-                <small>+7 921 187 51 37</small>
-              </a>
-            </div>
-          </div>
-          <a class="button" href="./cv.pdf" download="cv.pdf" type="application/pdf">Печать / PDF</a>
+          <a class="button primary" href="./cv.pdf" download="cv.pdf" type="application/pdf">PDF</a>
+          <button class="button" type="button" id="qrToggle" aria-haspopup="dialog" aria-controls="qrModal">
+            QR
+          </button>
         </div>
       </div>
     </header>
@@ -793,32 +796,32 @@
         <details class="panel" open>
           <summary><h2 class="panel-title">Навыки</h2></summary>
           <div class="panel-body">
-            <div class="skills">
-              <details class="skill-toggle" open>
-                <summary>Продуктовый менеджмент</summary>
+            <ul class="skill-list">
+              <li>
+                <strong>Продуктовый менеджмент</strong>
                 <p>Анализ пользовательских сценариев, формулирование гипотез, поиск точек роста, работа с пользовательской ценностью.</p>
-              </details>
-              <details class="skill-toggle" open>
-                <summary>Проектный менеджмент</summary>
+              </li>
+              <li>
+                <strong>Проектный менеджмент</strong>
                 <p>Декомпозиция задач, координация процессов, контроль сроков, распределение задач, командное взаимодействие.</p>
-              </details>
-              <details class="skill-toggle" open>
-                <summary>UX-исследования</summary>
+              </li>
+              <li>
+                <strong>UX-исследования</strong>
                 <p>Анализ потребностей аудитории, выявление барьеров в интерфейсе, рекомендации по улучшению продукта.</p>
-              </details>
-              <details class="skill-toggle" open>
-                <summary>Аналитика и метрики</summary>
+              </li>
+              <li>
+                <strong>Аналитика и метрики</strong>
                 <p>Базовое понимание конверсий, удержания пользователей, доли отказов, сегментации, проверки гипотез и интерпретации результатов.</p>
-              </details>
-              <details class="skill-toggle" open>
-                <summary>Работа с данными</summary>
+              </li>
+              <li>
+                <strong>Работа с данными</strong>
                 <p>Очистка, структурирование, верификация данных, подготовка аналитических таблиц и отчётов.</p>
-              </details>
-              <details class="skill-toggle" open>
-                <summary>Коммуникация</summary>
+              </li>
+              <li>
+                <strong>Коммуникация</strong>
                 <p>Сбор и уточнение требований, постановка задач, подготовка выводов, презентаций и рекомендаций.</p>
-              </details>
-            </div>
+              </li>
+            </ul>
             <div class="tags" aria-label="Инструменты">
               <span class="tag">Excel</span>
               <span class="tag">Google Таблицы</span>
@@ -835,46 +838,49 @@
 
         <details class="panel" open>
           <summary><h2 class="panel-title">Образование</h2></summary>
-          <div class="panel-body sidebar-list">
-            <details class="sidebar-toggle" open>
-              <summary>Санкт-Петербургский государственный университет</summary>
-              <p>
-                Социологические исследования в цифровом обществе, 3 курс<br />
-                Санкт-Петербург · 2023 — 2027
-              </p>
-            </details>
+          <div class="panel-body">
+            <ul class="info-list">
+              <li>
+                <strong>Санкт-Петербургский государственный университет</strong>
+                <p>Социологические исследования в цифровом обществе, 3 курс<br />Санкт-Петербург · 2023 — 2027</p>
+              </li>
+            </ul>
           </div>
         </details>
 
         <details class="panel" open>
           <summary><h2 class="panel-title">Доп. образование</h2></summary>
-          <div class="panel-body sidebar-list">
-            <details class="sidebar-toggle" open>
-              <summary>Летняя социологическая школа МГУ</summary>
-              <p>Исследования, статистика, аналитика и работа с данными.</p>
-            </details>
-            <details class="sidebar-toggle" open>
-              <summary>Менторские программы</summary>
-              <p>Участие в менторствах в университете и Альфа-Банке.</p>
-            </details>
-            <details class="sidebar-toggle" open>
-              <summary>Дополнительные курсы</summary>
-              <p>Аналитика данных, основы статистики, цифровые инструменты, исследовательские методы.</p>
-            </details>
+          <div class="panel-body">
+            <ul class="info-list">
+              <li>
+                <strong>Летняя социологическая школа МГУ</strong>
+                <p>Исследования, статистика, аналитика и работа с данными.</p>
+              </li>
+              <li>
+                <strong>Менторские программы</strong>
+                <p>Участие в менторствах в университете и Альфа-Банке.</p>
+              </li>
+              <li>
+                <strong>Дополнительные курсы</strong>
+                <p>Аналитика данных, основы статистики, цифровые инструменты, исследовательские методы.</p>
+              </li>
+            </ul>
           </div>
         </details>
 
         <details class="panel" open>
           <summary><h2 class="panel-title">Языки</h2></summary>
-          <div class="panel-body sidebar-list">
-            <details class="sidebar-toggle" open>
-              <summary>Русский</summary>
-              <p>Родной</p>
-            </details>
-            <details class="sidebar-toggle" open>
-              <summary>Английский</summary>
-              <p>B2</p>
-            </details>
+          <div class="panel-body">
+            <ul class="info-list">
+              <li>
+                <strong>Русский</strong>
+                <p>Родной</p>
+              </li>
+              <li>
+                <strong>Английский</strong>
+                <p>B2</p>
+              </li>
+            </ul>
           </div>
         </details>
       </aside>
@@ -885,31 +891,45 @@
     </footer>
   </div>
 
-  <script>
-    const contactToggle = document.getElementById('contactToggle');
-    const contactOptions = document.getElementById('contactOptions');
+  <div class="qr-modal" id="qrModal" role="dialog" aria-modal="true" aria-labelledby="qrTitle" hidden>
+    <div class="qr-dialog">
+      <button class="qr-close" type="button" id="qrClose" aria-label="Закрыть QR">×</button>
+      <h2 id="qrTitle">QR-код страницы</h2>
+      <p>Ссылка на онлайн-версию резюме</p>
+      <img class="qr-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAFKAQAAAABTUiuoAAACBUlEQVR4nO2aTYrjMBCFvxoLspRhDjBHsW/QZ50b2EfJARqiZUDmzUJSfrozkDQ49qJqEWLnWzwoSqp6FRNPxvzrWRIcddRRRx11dE3UagTMeoBkZmNqr8fVBTj6CjpIkk4gnYC57wR0kiTdo+sIcPQVNLUSms2M4QSaADML7xHg6A9QG2PGrF/a+fduAY6+imqKeVMBjj6Ods5FAQkYJmTETpDgdnbeXKujFZ3NrLWDAYZjwEaW0hK+Q4Cjz4R9cZ6M+BkeulHuPO0FtRGwMZkBnYDFrvVm4+oCHH0uykg10QmiVJr3MnlJgpgbsrlWRy+1tRjDMQBRqm28BSAdfDreDXqZfbtsxLOJ9DuX/Ax/exOpb1fb5lodrcecTp1uzr9BGU100gTVl/KTcHv0Lj1R5fKq03FsP/i9tRP0prbK4xSbv1sNjWrterZ2gF6ydUmUJIaWvNoierb2gZYuw+pHyMAS4OITzn3Xvm6u1dGC1ppSxsZ0ELOF0lswKN+j6whw9AX0ujtm/nO2WlspPEDXEeDoK+h1dzylQzE0Sspm30buEG27Yxvj2UpZzVf7/Q0CHP0BKh1DWfLXx9Pi/6LZDRoevTToALrM/JGDO097Qb/tjqFujDV/fNoNsb1WRyt6s8uKGRtZDNKhdB42ri/A0Wfi6+74/+G7Y0cdddRRR7dH/wEhZBbPv1QKngAAAABJRU5ErkJggg==" alt="QR-код со ссылкой на https://vkravch.github.io" width="320" height="320" />
+      <a class="qr-url" href="https://vkravch.github.io" target="_blank" rel="noreferrer">https://vkravch.github.io</a>
+    </div>
+  </div>
 
-    function closeContactMenu() {
-      contactOptions.hidden = true;
-      contactToggle.setAttribute('aria-expanded', 'false');
+  <script>
+    const qrToggle = document.getElementById('qrToggle');
+    const qrModal = document.getElementById('qrModal');
+    const qrClose = document.getElementById('qrClose');
+
+    function openQrModal() {
+      qrModal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      qrClose.focus();
     }
 
-    contactToggle.addEventListener('click', (event) => {
-      event.stopPropagation();
-      const isOpen = contactToggle.getAttribute('aria-expanded') === 'true';
-      contactOptions.hidden = isOpen;
-      contactToggle.setAttribute('aria-expanded', String(!isOpen));
-    });
+    function closeQrModal() {
+      qrModal.hidden = true;
+      document.body.style.overflow = '';
+      qrToggle.focus();
+    }
 
-    document.addEventListener('click', (event) => {
-      if (!contactOptions.hidden && !event.target.closest('.contact-menu')) {
-        closeContactMenu();
+    qrToggle.addEventListener('click', openQrModal);
+    qrClose.addEventListener('click', closeQrModal);
+
+    qrModal.addEventListener('click', (event) => {
+      if (event.target === qrModal) {
+        closeQrModal();
       }
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        closeContactMenu();
+      if (event.key === 'Escape' && !qrModal.hidden) {
+        closeQrModal();
       }
     });
   </script>
